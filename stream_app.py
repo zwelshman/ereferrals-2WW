@@ -42,7 +42,7 @@ st.pyplot(fig)
 
 st.subheader("Weekly Referral Aggregate 2WW data")
 testing_group_week = df.groupby(["year", "week_of_year"]).sum()
-st.write(testing_group_month)
+st.write(testing_group_week)
 
 st.subheader("Comparing two years for aggregate 2WW data weekly")
 fig, ax = plt.subplots()  # solved by add this line
