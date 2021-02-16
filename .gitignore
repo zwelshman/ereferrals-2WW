@@ -1,5 +1,4 @@
 #CSV
-*.csv
 .ipynb_checkpoints/*
 data/*
 notebooks/*
