@@ -14,7 +14,7 @@ st.title("Data Extracted From NHS e-referrals")
 
 @st.cache
 def load_data():
-    data = pd.read_csv("./data/Referrals_csv_files/testing_group_2.csv")
+    data = pd.read_csv("./app_data/testing_group_2.csv")
     return data
 
 
