@@ -9,7 +9,7 @@ import time
 matplotlib.style.use("ggplot")
 # plt.rcParams["figure.figsize"] = [16, 6]
 
-st.title("Open Data Extracted From NHS e-referrals for Leeds CCG")
+st.title("Open Data Extracted From NHS e-referrals")
 
 rad = st.sidebar.radio("Navigation", ["Two Week Wait Analysis", "About me"])
 
