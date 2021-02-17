@@ -58,7 +58,7 @@ if rad == "Two Week Wait Analysis":
 
     # Create a list of possible values and multiselect menu with them in it.
     Priority = list(df["Priority"].unique())
-    Priority = st.multiselect("Select Priority", Priority, default=['2WW'])
+    Priority_SELECTED = st.multiselect("Select Priority", Priority, default=['2 Week Wait', 'Urgent', 'Routine'])
     # Mask to filter dataframe
     mask_Priority = df["Priority"].isin(Priority_SELECTED)
     df = df[mask_Priority]
