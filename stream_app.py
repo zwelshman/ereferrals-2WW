@@ -46,37 +46,9 @@ if rad == "Analysis for Two Week Wait":
 
     # 'You selected:', option
 
-    # df = filtered_dataframe(df, 'CCG_Name', default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"])
-    # df = filtered_dataframe(df, 'Specialty', default=["2WW"])
-    # df = filtered_dataframe(df, 'Priority', default=["2 Week Wait", "Urgent", "Routine"])
-
-    # Create a list of possible values and multiselect menu with them in it.
-    CCG = list(df["CCG_Name"].unique())
-    CCG_SELECTED = st.multiselect("Select CCG", CCG, default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"])
-    # Mask to filter dataframe
-    mask_CCG = df["CCG_Name"].isin(CCG_SELECTED)
-    df = df[mask_CCG]
-    # st.write('You selected:', CCG_SELECTED)
-
-
-    # specialty = filtered_dataframe(df, 'Specialty', ["2WW"])
-
-    # Create a list of possible values and multiselect menu with them in it.
-    Specialty = list(df["Specialty"].unique())
-    Specialty_SELECTED = st.multiselect("Select Specialty_org", Specialty, default=["2WW"])
-    # Mask to filter dataframe
-    mask_Specialty = df["Specialty"].isin(Specialty_SELECTED)
-    df = df[mask_Specialty]
-
-    # Create a list of possible values and multiselect menu with them in it.
-    Priority = list(df["Priority"].unique())
-    Priority_SELECTED = st.multiselect(
-        "Select Priority", Priority, default=["2 Week Wait", "Urgent", "Routine"]
-    )
-    # Mask to filter dataframe
-    mask_Priority = df["Priority"].isin(Priority_SELECTED)
-    df = df[mask_Priority]
-    # st.write('You selected:', Specialty_SELECTED)
+    df = filtered_dataframe(df, 'CCG_Name', default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"])
+    df = filtered_dataframe(df, 'Specialty', default=["2WW"])
+    df = filtered_dataframe(df, 'Priority', default=["2 Week Wait", "Urgent", "Routine"])
 
     # months_values = list(df['month'].unique())
     # Months_SELECTED = st.slider('Select a range of values for months', 0, 12, (0, 12))
