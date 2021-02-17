@@ -9,13 +9,18 @@ import time
 from src.dataframe_manipulation import filtered_dataframe
 
 matplotlib.style.use("ggplot")
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = 'Helvetica'
+plt.rcParams['axes.edgecolor']='#333F4B'
+plt.rcParams['axes.linewidth']=0.8
+plt.rcParams['xtick.color']='#333F4B'
+plt.rcParams['ytick.color']='#333F4B'
 # plt.rcParams["figure.figsize"] = [16, 6]
 
 st.title("Open Data Extracted From NHS e-referrals.")
 
 rad = st.sidebar.radio(
-    "Navigation",
-    ["Analysis for Two Week Wait", "Advanced Analytics", "About me"],
+    "Navigation", ["Analysis for Two Week Wait", "Advanced Analytics", "About me"],
 )
 
 if rad == "About me":
@@ -46,9 +51,13 @@ if rad == "Analysis for Two Week Wait":
 
     # 'You selected:', option
 
-    df = filtered_dataframe(df, 'CCG_Name', default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"])
-    df = filtered_dataframe(df, 'Specialty', default=["2WW"])
-    df = filtered_dataframe(df, 'Priority', default=["2 Week Wait", "Urgent", "Routine"])
+    df = filtered_dataframe(
+        df, "CCG_Name", default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"]
+    )
+    df = filtered_dataframe(df, "Specialty", default=["2WW"])
+    df = filtered_dataframe(
+        df, "Priority", default=["2 Week Wait", "Urgent", "Routine"]
+    )
 
     # months_values = list(df['month'].unique())
     # Months_SELECTED = st.slider('Select a range of values for months', 0, 12, (0, 12))
@@ -101,6 +110,26 @@ if rad == "Analysis for Two Week Wait":
     st.subheader("Weekly Referral Aggregate 2WW data")
     st.write(testing_group_week)
 
+    testing_group_clinic = df.drop(columns=["day_of_year", "week_of_year"])
+    testing_group_clinic = testing_group_clinic.groupby(
+        ["CCG_Name", "year", "month", "Clinic_Type"]
+    ).sum()
+    testing_group_clinic.reset_index(inplace=True)
 
+    fig, ax = plt.subplots()
+    ax = sns.lineplot(
+        x="Clinic_Type",
+        y="Referrals",
+        hue="year",
+        style="CCG_Name",
+        palette="colorblind",
+        data=testing_group_clinic,
+    )
+
+    plt.xticks(rotation=90)
+    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
+    st.pyplot(fig)
+
+    st.write(testing_group_clinic)
 if rad == "Advanced Analytics":
     "Markdown: #Work in progress"
