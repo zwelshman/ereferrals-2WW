@@ -6,38 +6,34 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 
-matplotlib.style.use('ggplot')
+matplotlib.style.use("ggplot")
 # plt.rcParams["figure.figsize"] = [16, 6]
 
 st.title("Open Data Extracted From NHS e-referrals for Leeds CCG")
 
-rad = st.sidebar.radio("Navigation", ['About me','Two Week Wait Analysis'])
+rad = st.sidebar.radio("Navigation", ["Two Week Wait Analysis", "About me"])
 
-if rad == 'About me':
-    st.sidebar.markdown('Markdown: work in progress')
-    
-    'This is a short story about me'
+if rad == "About me":
+    "Markdown: work in progress"
 
-
-if rad == 'Two Week Wait Analysis':
+if rad == "Two Week Wait Analysis":
 
     @st.cache(allow_output_mutation=True)
     def load_data():
-        data = pd.read_csv("./app_data/all.csv") 
+        data = pd.read_csv("./app_data/all.csv")
         return data
 
-    with st.spinner('Wait for it... Just loading the data'):
+    with st.spinner(
+        "Wait for it... Just loading the data, dont forget to check the correct filters are selected"
+    ):
 
         my_bar = st.progress(0)
         for percent_complete in range(100):
             df = load_data()
-            df.loc[(df.day_of_year > 358) & 
-            (df.week_of_year == 1), 
-            'week_of_year'] = 52
+            df.loc[(df.day_of_year > 358) & (df.week_of_year == 1), "week_of_year"] = 52
             my_bar.progress(percent_complete + 1)
-        
-        st.success('Done, your data has loaded!')
 
+        st.success("Done, your data has loaded!")
 
     # option = st.sidebar.selectbox(
     #     'Which number do you like best?',
@@ -46,22 +42,20 @@ if rad == 'Two Week Wait Analysis':
     # 'You selected:', option
 
     # Create a list of possible values and multiselect menu with them in it.
-    CCG = list(df['CCG_Name'].unique())
-    CCG_SELECTED = st.multiselect('Select CCG', CCG)
+    CCG = list(df["CCG_Name"].unique())
+    CCG_SELECTED = st.multiselect("Select CCG", CCG)
     # Mask to filter dataframe
-    mask_CCG = df['CCG_Name'].isin(CCG_SELECTED)
+    mask_CCG = df["CCG_Name"].isin(CCG_SELECTED)
     df = df[mask_CCG]
     # st.write('You selected:', CCG_SELECTED)
 
     # Create a list of possible values and multiselect menu with them in it.
-    Specialty = list(df['Specialty'].unique())
-    Specialty_SELECTED = st.multiselect('Select Specialty', Specialty)
+    Specialty = list(df["Specialty"].unique())
+    Specialty_SELECTED = st.multiselect("Select Specialty", Specialty)
     # Mask to filter dataframe
-    mask_Specialty = df['Specialty'].isin(Specialty_SELECTED)
+    mask_Specialty = df["Specialty"].isin(Specialty_SELECTED)
     df = df[mask_Specialty]
     # st.write('You selected:', Specialty_SELECTED)
-
-
 
     # months_values = list(df['month'].unique())
     # Months_SELECTED = st.slider('Select a range of values for months', 0, 12, (0, 12))
@@ -72,8 +66,10 @@ if rad == 'Two Week Wait Analysis':
     st.subheader("Raw Weekly Referral 2WW data")
     st.write(df)
 
-    testing_group_month = df.drop(columns =[ 'day_of_year', 'week_of_year'])
-    testing_group_month = testing_group_month.groupby(['CCG_Name',"year", "month"]).sum()
+    testing_group_month = df.drop(columns=["day_of_year", "week_of_year"])
+    testing_group_month = testing_group_month.groupby(
+        ["CCG_Name", "year", "month"]
+    ).sum()
 
     st.subheader("Comparing two years for aggregate 2WW data Monthly")
     fig, ax = plt.subplots()  # solved by add this line
@@ -85,31 +81,30 @@ if rad == 'Two Week Wait Analysis':
         palette="colorblind",
         data=testing_group_month,
     )
-    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
     st.pyplot(fig)
 
     st.subheader("Monthly Referral Aggregate 2WW data")
     st.write(testing_group_month)
 
-    testing_group_week = df.drop(columns =[ 'day_of_year', 'month'])
-    testing_group_week = testing_group_week.groupby(['CCG_Name',"year", "week_of_year"]).sum()
+    testing_group_week = df.drop(columns=["day_of_year", "month"])
+    testing_group_week = testing_group_week.groupby(
+        ["CCG_Name", "year", "week_of_year"]
+    ).sum()
 
     st.subheader("Comparing two years for aggregate 2WW data weekly")
     fig, ax = plt.subplots()  # solved by add this line
     ax = sns.lineplot(
         x="week_of_year",
         y="Referrals",
-        hue='year',
+        hue="year",
         style="CCG_Name",
         palette="colorblind",
         data=testing_group_week,
-        
     )
-    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
     st.pyplot(fig)
 
     st.subheader("Weekly Referral Aggregate 2WW data")
     st.write(testing_group_week)
-
-
 
