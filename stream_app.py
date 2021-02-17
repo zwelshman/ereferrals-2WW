@@ -43,7 +43,7 @@ if rad == "Two Week Wait Analysis":
 
     # Create a list of possible values and multiselect menu with them in it.
     CCG = list(df["CCG_Name"].unique())
-    CCG_SELECTED = st.multiselect("Select CCG", CCG)
+    CCG_SELECTED = st.multiselect("Select CCG", CCG, default=list(df["CCG_Name"].unique()))
     # Mask to filter dataframe
     mask_CCG = df["CCG_Name"].isin(CCG_SELECTED)
     df = df[mask_CCG]
@@ -51,7 +51,7 @@ if rad == "Two Week Wait Analysis":
 
     # Create a list of possible values and multiselect menu with them in it.
     Specialty = list(df["Specialty"].unique())
-    Specialty_SELECTED = st.multiselect("Select Specialty", Specialty)
+    Specialty_SELECTED = st.multiselect("Select Specialty", Specialty, default=list(df["Specialty"].unique()))
     # Mask to filter dataframe
     mask_Specialty = df["Specialty"].isin(Specialty_SELECTED)
     df = df[mask_Specialty]
