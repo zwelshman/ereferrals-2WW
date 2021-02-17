@@ -28,7 +28,7 @@ if rad == "Analysis for Two Week Wait":
         data = pd.read_csv("./app_data/all.csv")
         return data
 
-    with st.spinner("Wait for it... Just loading the data"):
+    with st.spinner("Wait for it... Just loading the data..."):
 
         my_bar = st.progress(0)
         for percent_complete in range(100):
