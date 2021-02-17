@@ -14,7 +14,7 @@ st.title("Open Data Extracted From NHS e-referrals")
 rad = st.sidebar.radio("Navigation", ["Two Week Wait Analysis", "About me"])
 
 if rad == "About me":
-    "Markdown: work in progress"
+    "Markdown: #Work in progress"
 
 if rad == "Two Week Wait Analysis":
 
@@ -55,6 +55,13 @@ if rad == "Two Week Wait Analysis":
     # Mask to filter dataframe
     mask_Specialty = df["Specialty"].isin(Specialty_SELECTED)
     df = df[mask_Specialty]
+
+    # Create a list of possible values and multiselect menu with them in it.
+    Priority = list(df["Priority"].unique())
+    Priority = st.multiselect("Select Priority", Priority, default=['2WW'])
+    # Mask to filter dataframe
+    mask_Priority = df["Priority"].isin(Priority_SELECTED)
+    df = df[mask_Priority]
     # st.write('You selected:', Specialty_SELECTED)
 
     # months_values = list(df['month'].unique())
