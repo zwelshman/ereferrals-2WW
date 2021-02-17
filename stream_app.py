@@ -24,7 +24,7 @@ if rad == "Two Week Wait Analysis":
         return data
 
     with st.spinner(
-        "Wait for it... Just loading the data, dont forget to check the correct filters are selected"
+        "Wait for it... Just loading the data "
     ):
 
         my_bar = st.progress(0)
@@ -33,7 +33,7 @@ if rad == "Two Week Wait Analysis":
             df.loc[(df.day_of_year > 358) & (df.week_of_year == 1), "week_of_year"] = 52
             my_bar.progress(percent_complete + 1)
 
-        st.success("Done, your data has loaded!")
+        st.success("Done, your data has loaded! Don't forget to check the correct filters are selected.")
 
     # option = st.sidebar.selectbox(
     #     'Which number do you like best?',
