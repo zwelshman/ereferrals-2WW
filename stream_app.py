@@ -9,12 +9,12 @@ import time
 from src.dataframe_manipulation import filtered_dataframe
 
 matplotlib.style.use("ggplot")
-plt.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.sans-serif'] = 'Helvetica'
-plt.rcParams['axes.edgecolor']='#333F4B'
-plt.rcParams['axes.linewidth']=0.8
-plt.rcParams['xtick.color']='#333F4B'
-plt.rcParams['ytick.color']='#333F4B'
+plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["font.sans-serif"] = "Helvetica"
+plt.rcParams["axes.edgecolor"] = "#333F4B"
+plt.rcParams["axes.linewidth"] = 0.8
+plt.rcParams["xtick.color"] = "#333F4B"
+plt.rcParams["ytick.color"] = "#333F4B"
 # plt.rcParams["figure.figsize"] = [16, 6]
 
 st.title("Open Data Extracted From NHS e-referrals.")
@@ -54,16 +54,34 @@ if rad == "Analysis for Two Week Wait":
     df = filtered_dataframe(
         df, "CCG_Name", default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"]
     )
+
     df = filtered_dataframe(df, "Specialty", default=["2WW"])
+
+    df = filtered_dataframe(
+        df,
+        "Clinic_Type",
+        default=[
+            "2WW Brain",
+            "2WW Breast",
+            "2WW Cancer of Unknown Primary",
+            "2WW Gynaecology",
+            "2WW Haematology",
+            "2WW Head and Neck",
+            "2WW Lower GI",
+            "2WW Lung",
+            "2WW Skin",
+            "2WW Upper GI",
+            "2WW Urology",
+            "2WW Sarcoma",
+            "2WW Children and Young People",
+            "2WW Bone",
+            "2WW Non-specific symptoms",
+        ],
+    )
+
     df = filtered_dataframe(
         df, "Priority", default=["2 Week Wait", "Urgent", "Routine"]
     )
-
-    # months_values = list(df['month'].unique())
-    # Months_SELECTED = st.slider('Select a range of values for months', 0, 12, (0, 12))
-    # mask_Months = df['month'].isin(Months_SELECTED)
-    # df = df[mask_Months]
-    # st.write('Values:', Months_SELECTED)
 
     st.subheader("Raw Weekly Referral 2WW data")
     st.write(df)
