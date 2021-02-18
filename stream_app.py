@@ -45,14 +45,8 @@ if rad == "Analysis for Two Week Wait":
             "Done, your data has loaded! Don't forget to check the correct filters are selected."
         )
 
-    # option = st.sidebar.selectbox(
-    #     'Which number do you like best?',
-    #      df['month'])
-
-    # 'You selected:', option
-
     df = filtered_dataframe(
-        df, "CCG_Name", default=["NHS LEEDS CCG", "NHS ROTHERHAM CCG"]
+        df, "CCG_Name", default=["NHS LEEDS CCG",]
     )
 
     df = filtered_dataframe(df, "Specialty", default=["2WW"])
