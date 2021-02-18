@@ -104,28 +104,6 @@ def main():
         st.subheader("Weekly Referral Aggregate 2WW data")
         st.write(testing_group_week)
 
-        testing_group_clinic = df.drop(columns=["day_of_year", "week_of_year"])
-        testing_group_clinic = testing_group_clinic.groupby(
-            ["CCG_Name", "year", "month", "Clinic_Type"]
-        ).sum()
-        testing_group_clinic.reset_index(inplace=True)
-
-        fig, ax = plt.subplots()
-        ax = sns.lineplot(
-            x="Clinic_Type",
-            y="Referrals",
-            hue="year",
-            style="CCG_Name",
-            palette="colorblind",
-            data=testing_group_clinic,
-        )
-
-        plt.xticks(rotation=90)
-        ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
-        st.pyplot(fig)
-
-        st.write(testing_group_clinic)
-
     if rad == "Advanced Analytics":
         "Place holder"
 
