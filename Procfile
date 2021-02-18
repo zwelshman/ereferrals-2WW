@@ -1,1 +1,1 @@
-web: sh setup.sh && sh run.sh
+web: sh setup.sh && sh run.sh 
