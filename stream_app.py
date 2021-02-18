@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 
+import warnings
+warnings.filterwarnings("ignore")
+
 from src.dataframe_manipulation import filtered_dataframe
 
 matplotlib.style.use("ggplot")
@@ -79,27 +82,6 @@ def main():
 
         st.subheader("Raw Weekly Referral 2WW data")
         st.write(df)
-
-        testing_group_month = df.drop(columns=["day_of_year", "week_of_year"])
-        testing_group_month = testing_group_month.groupby(
-            ["CCG_Name", "year", "month"]
-        ).sum()
-
-        st.subheader("Comparing two years for aggregate 2WW data Monthly")
-        fig, ax = plt.subplots()  # solved by add this line
-        ax = sns.lineplot(
-            x="month",
-            y="Referrals",
-            hue="year",
-            style="CCG_Name",
-            palette="colorblind",
-            data=testing_group_month,
-        )
-        ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
-        st.pyplot(fig)
-
-        st.subheader("Monthly Referral Aggregate 2WW data")
-        st.write(testing_group_month)
 
         testing_group_week = df.drop(columns=["day_of_year", "month"])
         testing_group_week = testing_group_week.groupby(
