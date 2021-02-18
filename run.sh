@@ -1,5 +1,3 @@
-#!/bin/sh
-
 FILE=app_data/Referrals_csv_files/all.csv
 
 if test -f "$FILE"
