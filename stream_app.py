@@ -37,7 +37,7 @@ def main():
 
         @st.cache(allow_output_mutation=True)
         def load_data():
-            data = pd.read_csv("./app_data/all.csv")
+            data = pd.read_csv("./app_data/all.csv") 
             return data
 
         with st.spinner("Wait for it... Just loading the data..."):
