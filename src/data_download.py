@@ -1,7 +1,7 @@
 import base64
 def get_table_download_link(df, table):
     """Generates a link allowing the data in a given panda dataframe to be downloaded
-    in:  dataframe
+    in:  dataframe, table name
     out: href string
     """
     csv = df.to_csv(index=False)
