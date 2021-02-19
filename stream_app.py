@@ -10,6 +10,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from src.dataframe_manipulation import filtered_dataframe
+from src.data_download import get_table_download_link
 
 matplotlib.style.use("ggplot")
 plt.rcParams["font.family"] = "sans-serif"
@@ -80,8 +81,10 @@ def main():
             df, "Priority", default=["2 Week Wait", "Urgent", "Routine"]
         )
 
-        st.subheader("Raw Weekly Referral 2WW data")
+        st.subheader("Raw Weekly Referral 2WW Data")
         st.write(df)
+        st.markdown(get_table_download_link(df, table = "Raw Weekly Referral 2WW Data"), unsafe_allow_html=True)
+
 
         testing_group_week = df.drop(columns=["day_of_year", "month"])
         testing_group_week = testing_group_week.groupby(
@@ -101,8 +104,9 @@ def main():
         ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
         st.pyplot(fig)
 
-        st.subheader("Weekly Referral Aggregate 2WW data")
-        st.write(testing_group_week)
+        st.subheader("Aggregate Weekly Referral 2WW Data")
+        st.write(testing_group_week.reset_index())
+        st.markdown(get_table_download_link(testing_group_week.reset_index(), table=" Aggregate Weekly Referral 2WW Data",), unsafe_allow_html=True)
 
     if rad == "Advanced Analytics":
         "Place holder"
