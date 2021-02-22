@@ -6,6 +6,7 @@
 import pandas as pd
 import subprocess
 import os
+import argparse
 import time
 import sys
 import zipfile
@@ -72,10 +73,14 @@ def move_merged(source, destination, file_name):
     except:
         raise FileNotFoundError("File has already been moved to the correct folder")
 
+Month_loads = {
+    'Jan_2021':"https://files.digital.nhs.uk/83/10B742/Referrals_csv_files.zip",
+    'Feb_2021':"https://files.digital.nhs.uk/4C/2CB4C3/Referrals_csv_files%20%281%29.zip"
+    }
 
 print("Getting Zip")
 get_referral_zip(
-    url="https://files.digital.nhs.uk/83/10B742/Referrals_csv_files.zip",
+    url = Month_loads.get('Feb_2021'),
     target_path="Referrals_csv_files.zip",
 )
 
